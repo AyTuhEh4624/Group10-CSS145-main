@@ -58,7 +58,7 @@ def actual_vs_predicted_salary():
     plt.tight_layout()
     plt.ylabel("Predicted Salary")
     plt.title("Actual vs Predicted Salary")
-    st.pyplot
+    st.pyplot()
 
 st.header("Proposal 2")
 st.markdown("""
