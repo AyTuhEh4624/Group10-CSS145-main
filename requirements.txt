@@ -9,3 +9,4 @@ squarify
 networkx
 plotly
 scikit-learn
+import streamlit as st
