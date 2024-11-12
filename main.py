@@ -266,19 +266,6 @@ Furthermore, this suggests that fully remote positions in data science are often
 # Tagorda
 """)
 
-def data_science_salaries_by_remote_ratio():
-    encoder = LabelEncoder()
-    dfnewCopy = dfnew.copy()
-    plt.figure(figsize=(12, 6))
-    plt.plot(dfnew['salary_in_usd'], dfnew['remote_ratio'], 'o', color='orange')
-    plt.title('Data Science Salaries by Remote Ratio')
-    plt.xlabel('Salary in USD')
-    plt.ylabel('Remote Ratio')
-    plt.grid(True)
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    st.pyplot()
-
 def elbow_method_for_optimal_k():
     data_filtered = dfnew[['salary_in_usd', 'company_location']].copy()
     label_encoder = LabelEncoder()
@@ -326,7 +313,6 @@ def clusters_of_job_salaries_by_company_location():
     st.pyplot()
 
 # Call the functions to visualize the data
-data_science_salaries_by_remote_ratio()
 elbow_method_for_optimal_k()
 clusters_of_job_salaries_by_company_location()
 
