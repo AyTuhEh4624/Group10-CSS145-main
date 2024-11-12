@@ -24,28 +24,19 @@ from sklearn.model_selection import train_test_split
 
 df=pd.read_csv('ds_salaries.csv')
 df.dropna(axis=1, how='any')
-df.info()
 
 #Checks for duplicated data.
 df.duplicated()
 
 #Checks # of missing (NaN) values
 df.isna().sum()
-df.head(100)
-
-df.info()
-df['remote_ratio'].unique()
 
 #Deletes 'Unnamed: 0' Column from original df
 dfnew = df.drop(columns=['Unnamed: 0'])
 # Columns with String values
 cat_col = [col for col in dfnew.columns if dfnew[col].dtype == 'object']
-print('Categorical columns :',cat_col)
 # Columns with Int values
 num_col = [col for col in dfnew.columns if dfnew[col].dtype != 'object']
-print('Numerical columns :',num_col)
-
-dfnew.info()
 
 """ProjectProposal#2.ipynb
 
@@ -113,13 +104,15 @@ def actual_vs_predicted_salary():
     plt.ylabel("Predicted Salary")
     plt.title("Actual vs Predicted Salary")
     plt.show()
-actual_vs_predicted_salary()
+    
+
 
 """**Supervised Learning For Salary Prediction**
 
 From this scatter graph, we are able to understand that the predicted salary is considerably lower than the actual salary. Using an encoder to convert "experience_level" and "company_size" into usable values, we are able to get predicted salaries. This plot visualized how linear regression model predictions align with the aculary salary given from the data set. In this case, the predicted values are significantly lower.
 
 """
+actual_vs_predicted_salary()
 def distribution_of_remote_work_ratio_and_average_salary_in_USD():
     remote_ratio_counts = dfnewCopy['remote_ratio'].value_counts()
     custom_labels = {
@@ -159,6 +152,7 @@ def important_factors_in_salary_prediction():
     plt.xlabel("Factors")
     plt.ylabel("Predicted Salary Changes")
     plt.show()
+    
 distribution_of_remote_work_ratio_and_average_salary_in_USD()
 important_factors_in_salary_prediction()
 """**Supervised Learning: Important Factors in Salary Prediction**
