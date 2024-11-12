@@ -344,10 +344,3 @@ For example, in high-cost regions such as North America and parts of europe, dat
 Additionally, the analysis shows that some countries with a strong presence of tech and finance industries (such as the US and UK) cluster together with higher salary ranges. These industries are major employers of data scientists, and they often offer competitive salaries to attract top talent.
 
 """)
-
-def location_encoding_tagorda():
-    location_encoding = dict(zip(data['company_location'].unique(), label_encoder.transform(data['company_location'].unique())))
-    for location, code in location_encoding.items():
-        print(f"{location}: {code}")
-
-location_encoding_tagorda()
