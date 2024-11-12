@@ -8,3 +8,4 @@ wordcloud
 squarify
 networkx
 plotly
+sklearn
