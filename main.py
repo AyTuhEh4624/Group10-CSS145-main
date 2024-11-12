@@ -148,6 +148,7 @@ def important_factors_in_salary_prediction():
 
 distribution_of_remote_work_ratio_and_average_salary_in_USD()
 important_factors_in_salary_prediction()
+
 st.markdown("""
 **Supervised Learning: Important Factors in Salary Prediction**
 
@@ -163,41 +164,171 @@ This graph highlights the factors that most significantly contribute to predicti
 # Ofrin
 """)
 
-st.markdown("""
-""")
+def average_data_science_salaries_by_experience_level_actual_vs_predicted():
+    experience_mapping = {
+        0: 'Entry Level',
+        1: 'Mid Level',
+        2: 'Senior Level',
+        3: 'Expert Level'
+    }
+    dfnew['experience_level_code'] = dfnew['experience_level'].astype('category').cat.codes
+    X = dfnew[['experience_level_code']]
+    y = dfnew['salary_in_usd']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    predictions = model.predict(X)
+    dfnew['predicted_salary'] = predictions
+    avg_predicted_salary = dfnew.groupby('experience_level_code')['predicted_salary'].mean().reset_index()
+    avg_actual_salary = dfnew.groupby('experience_level_code')['salary_in_usd'].mean().reset_index()
+    avg_actual_salary['experience_level'] = avg_actual_salary['experience_level_code'].map(experience_mapping)
+    avg_predicted_salary['experience_level'] = avg_predicted_salary['experience_level_code'].map(experience_mapping)
+    plt.figure(figsize=(12, 6))
+    bar_width = 0.4
+    index = np.arange(len(experience_mapping))
+    plt.bar(index - bar_width/2, avg_actual_salary['salary_in_usd'], bar_width, label='Actual', color='b')
+    plt.bar(index + bar_width/2, avg_predicted_salary['predicted_salary'], bar_width, label='Predicted', color='g')
+    plt.title('Average Data Science Salaries by Experience Level (Actual vs Supervised Learning Predicted)')
+    plt.xlabel('Experience Level')
+    plt.ylabel('Average Salary in USD')
+    plt.xticks(index, experience_mapping.values(), rotation=45)
+    plt.grid(True)
+    plt.legend()
+    plt.tight_layout()
+    st.pyplot()
+
+average_data_science_salaries_by_experience_level_actual_vs_predicted()
 
 st.markdown("""
+From this bar graph, we can see that for entry-level positions, the predicted values are in good agreement with the actual ones. For mid-level, the actual salaries are much higher than the predicted ones. Thus, it underestimates salaries for this category. For senior-level positions, the difference is less significant, as it underestimates. Lastly, the model's predictions for expert-level positions are in good agreement with the actual ones.
 """)
 
-st.markdown("""
-""")
+def average_data_science_salaries_by_employement_type():
+    avg_salary = dfnew.groupby('employment_type')['salary_in_usd'].mean().reset_index()
+    plt.figure(figsize=(12, 6))
+    plt.bar(avg_salary['employment_type'], avg_salary['salary_in_usd'], color='purple')
+    plt.title('Average Data Science Salaries by Employment Type')
+    plt.xlabel('Employment Type')
+    plt.ylabel('Average Salary in USD')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    st.pyplot()
+    
+average_data_science_salaries_by_employement_type()
 
 st.markdown("""
+From what we can see on the bar chart, the highest average salary was for CT positions, with an average that far surpasses the rest, and is nearly 175,000. The average for FT employment is relatively middle-of-the-pack at around 100,000, and FL and PT averages are significantly smaller, and their averages run below 50,000. This would indicate that more pay in data science is often associated with contract-based employment, perhaps reflecting the premium put for short-term, high-skilled work, where freelancer and part-time will take lower pay rates.
+
+# Caseria
 """)
+def data_science_salaries_by_job_title():
+    encoder = LabelEncoder()
+    dfnewCopy = dfnew.copy()
+    plt.figure(figsize=(12, 6))
+    plt.plot(dfnew['salary_in_usd'], dfnew['job_title'], 'o', color='m')
+    plt.title('Data Science Salaries by Job Title')
+    plt.xlabel('Salary in USD')
+    plt.ylabel('Job Title')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    st.pyplot()
+data_science_salaries_by_job_title()
 
 st.markdown("""
+Based on the Data Science Salaries by Job Title chart, the highest salaries are for job titles like "Lead Machine Learning Engineer" and "Head of Data Science," with some reaching over 300,000. Positions like "Data Scientist" and "Data Analyst" are more common and tend to have lower salaries, usually below 150,000.
+
+Moreover, this suggests that the highest-paying jobs in data science are usually specialized or leadership roles, which require advanced skills or experience. In contrast, general roles like data analysts or entry-level data scientists have lower average pay, showing that salary in data science often grows with job seniority and specialization.
+
+# Julia Agustin
 """)
 
-st.markdown("""
-""")
+def data_science_salaries_by_remote_ratio():
+    encoder = LabelEncoder()
+    dfnewCopy = dfnew.copy()
+    plt.figure(figsize=(12, 6))
+    plt.plot(dfnew['salary_in_usd'], dfnew['remote_ratio'], 'o', color='orange')
+    plt.title('Data Science Salaries by Remote Ratio')
+    plt.xlabel('Salary in USD')
+    plt.ylabel('Remote Ratio')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    st.pyplot()
+data_science_salaries_by_remote_ratio()
 
 st.markdown("""
+From what we can see on the Data Science Salaries by Remote Ratio chart, the highest salaries in data science are found in fully remote roles (with a 100% remote ratio), with some reaching over 400,000. Roles that are partially remote (around 50-60% remote ratio) or fully in-office (0% remote) tend to have lower salaries, mostly below 200,000.
+
+Furthermore, this suggests that fully remote positions in data science are often higher-paying compared to in-office or partially remote roles. This might indicate a higher demand for remote data science jobs or a premium placed on flexibility and the ability to work from anywhere.
+
+# Tagorda
 """)
 
-st.markdown("""
-""")
+def data_filtered_tagorda():
+    data_filtered = df[['salary_in_usd', 'company_location']].copy()
+    label_encoder = LabelEncoder()
+    data_filtered.loc[:, 'company_location_encoded'] = label_encoder.fit_transform(data_filtered['company_location'])
+    data_filtered = data_filtered.drop(columns=['company_location'])
+    data_filtered.head()
+
+def elbow_method_for_optimal_k():
+    inertia = []
+    k_range = range(1, 11)
+    for k in k_range:
+        kmeans = KMeans(n_clusters=k, random_state=42)
+        kmeans.fit(data_filtered)
+        inertia.append(kmeans.inertia_)
+    plt.figure(figsize=(8, 5))
+    plt.plot(k_range, inertia, marker='o', linestyle='-')
+    plt.xlabel("Number of Clusters (k)")
+    plt.ylabel("Inertia")
+    plt.title("Elbow Method for Optimal k")
+    st.pyplot()
+
+def clusters_of_job_salaries_by_company_location():
+    kmeans = KMeans(n_clusters=4, random_state=42)
+    data_filtered['cluster'] = kmeans.fit_predict(data_filtered)
+    data_filtered['company_location'] = label_encoder.inverse_transform(data_filtered['company_location_encoded'])
+    plt.figure(figsize=(12, 8))
+    sns.scatterplot(
+        x='company_location_encoded',
+        y='salary_in_usd',
+        hue='cluster',
+        data=data_filtered,
+        palette='viridis',
+        style='cluster',
+        s=100
+    )
+    plt.xlabel("Company Location (Encoded)")
+    plt.ylabel("Salary in USD")
+    plt.title("Clusters of Job Salaries by Company Location")
+    plt.legend(title="Cluster")
+    st.pyplot()
+
+data_filtered_tagorda()
+elbow_method_for_optimal_k() 
+clusters_of_job_salaries_by_company_location()
 
 st.markdown("""
+**Unsuperivsed Learning for Data Science Salary According to Company Location**
+
+To be able to identify an optimal balance for segmenting data, the elbow method was used, which was able to identify four clusters. These clusters show notable differences in data science salary distribution between locations.
+
+*(For the encoded number for these exact locations: refer to the list below*)
+
+The difference in salary are caused by several factors, but more significantly may be due to economic factors, industry presence, or cost of living.
+
+For example, in high-cost regions such as North America and parts of europe, data science positions tend to offer higher salaries compared to regions with lower costs of living. This is likely due to the high demand for skilled data scientists in these regions, alongside the higher operational costs that companies in these areas face.
+
+Additionally, the analysis shows that some countries with a strong presence of tech and finance industries (such as the US and UK) cluster together with higher salary ranges. These industries are major employers of data scientists, and they often offer competitive salaries to attract top talent.
+
 """)
 
-st.markdown("""
-""")
+def location_encoding_tagorda():
+    location_encoding = dict(zip(data['company_location'].unique(), label_encoder.transform(data['company_location'].unique())))
+    for location, code in location_encoding.items():
+        print(f"{location}: {code}")
 
-st.markdown("""
-""")
-
-st.markdown("""
-""")
-
-st.markdown("""
-""")
+location_encoding_tagorda()
