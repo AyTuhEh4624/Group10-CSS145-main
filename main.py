@@ -113,6 +113,7 @@ def actual_vs_predicted_salary():
     plt.ylabel("Predicted Salary")
     plt.title("Actual vs Predicted Salary")
     plt.show()
+actual_vs_predicted_salary()
 
 """**Supervised Learning For Salary Prediction**
 
@@ -158,7 +159,8 @@ def important_factors_in_salary_prediction():
     plt.xlabel("Factors")
     plt.ylabel("Predicted Salary Changes")
     plt.show()
-
+distribution_of_remote_work_ratio_and_average_salary_in_USD()
+important_factors_in_salary_prediction()
 """**Supervised Learning: Important Factors in Salary Prediction**
 
 This graph highlights the factors that most significantly contribute to predicting the salary.
@@ -210,6 +212,7 @@ def average_data_science_salaries_by_experience_level_actual_vs_predicted():
     plt.tight_layout()
     plt.show()
 
+average_data_science_salaries_by_experience_level_actual_vs_predicted()
 """From this bar graph, we can see that for entry-level positions, the predicted values are in good agreement with the actual ones. For mid-level, the actual salaries are much higher than the predicted ones. Thus, it underestimates salaries for this category. For senior-level positions, the difference is less significant, as it underestimates. Lastly, the model's predictions for expert-level positions are in good agreement with the actual ones."""
 
 def average_data_science_salaries_by_employement_type():
@@ -223,7 +226,7 @@ def average_data_science_salaries_by_employement_type():
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
-
+average_data_science_salaries_by_employement_type()
 """From what we can see on the bar chart, the highest average salary was for CT positions, with an average that far surpasses the rest, and is nearly 175,000. The average for FT employment is relatively middle-of-the-pack at around 100,000, and FL and PT averages are significantly smaller, and their averages run below 50,000. This would indicate that more pay in data science is often associated with contract-based employment, perhaps reflecting the premium put for short-term, high-skilled work, where freelancer and part-time will take lower pay rates.
 
 # Caseria
@@ -238,7 +241,7 @@ def data_science_salaries_by_job_title():
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
-
+data_science_salaries_by_job_title()
 """Based on the Data Science Salaries by Job Title chart, the highest salaries are for job titles like "Lead Machine Learning Engineer" and "Head of Data Science," with some reaching over 300,000. Positions like "Data Scientist" and "Data Analyst" are more common and tend to have lower salaries, usually below 150,000.
 
 Moreover, this suggests that the highest-paying jobs in data science are usually specialized or leadership roles, which require advanced skills or experience. In contrast, general roles like data analysts or entry-level data scientists have lower average pay, showing that salary in data science often grows with job seniority and specialization.
@@ -255,7 +258,7 @@ def data_science_salaries_by_remote_ratio():
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
-
+data_filtered_tagorda()
 """From what we can see on the Data Science Salaries by Remote Ratio chart, the highest salaries in data science are found in fully remote roles (with a 100% remote ratio), with some reaching over 400,000. Roles that are partially remote (around 50-60% remote ratio) or fully in-office (0% remote) tend to have lower salaries, mostly below 200,000.
 
 Furthermore, this suggests that fully remote positions in data science are often higher-paying compared to in-office or partially remote roles. This might indicate a higher demand for remote data science jobs or a premium placed on flexibility and the ability to work from anywhere.
@@ -307,6 +310,11 @@ def clusters_of_job_salaries_by_company_location():
     plt.legend(title="Cluster")
     plt.show()
 
+data_filtered_tagorda()
+
+elbow_method_for_optimal_k() 
+
+clusters_of_job_salaries_by_company_location()
 """**Unsuperivsed Learning for Data Science Salary According to Company Location**
 
 To be able to identify an optimal balance for segmenting data, the elbow method was used, which was able to identify four clusters. These clusters show notable differences in data science salary distribution between locations.
@@ -324,3 +332,5 @@ def location_encoding_tagorda():
     location_encoding = dict(zip(data['company_location'].unique(), label_encoder.transform(data['company_location'].unique())))
     for location, code in location_encoding.items():
         print(f"{location}: {code}")
+
+location_encoding_tagorda()
