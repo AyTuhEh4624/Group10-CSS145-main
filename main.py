@@ -12,7 +12,6 @@ from sklearn import datasets
 import random
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.ensemble import RandomForestClassifier
@@ -22,6 +21,12 @@ from sklearn.semi_supervised import LabelPropagation
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
+
+st.set_page_config(
+    page_title="Dashboard Template", # Replace this with your Project's Title
+    page_icon="assets/icon.png", # You may replace this with a custom icon or emoji related to your project
+    layout="wide",
+    initial_sidebar_state="expanded")
 
 df=pd.read_csv('ds_salaries.csv')
 df.dropna(axis=1, how='any')
