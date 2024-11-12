@@ -334,6 +334,6 @@ Additionally, the analysis shows that some countries with a strong presence of t
 def location_encoding_tagorda():
     location_encoding = dict(zip(data['company_location'].unique(), label_encoder.transform(data['company_location'].unique())))
     for location, code in location_encoding.items():
-        st.print(f"{location}: {code}")
+        st.write(f"{location}: {code}")
 
 location_encoding_tagorda()
