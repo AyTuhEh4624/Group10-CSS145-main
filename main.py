@@ -90,12 +90,9 @@ def actual_vs_predicted_salary():
     X = dfnewCopy[['experience_level_encoded', 'remote_ratio', 'company_size_encoded']]
     y = dfnewCopy['salary_in_usd']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-    
     model = LinearRegression()
     model.fit(X_train, y_train)
-    
     y_pred = model.predict(X_test)
-    
     plt.scatter(y_test, y_pred)
     plt.xlabel("Actual Salary")
     plt.grid(True)
@@ -135,17 +132,13 @@ def distribution_of_remote_work_ratio_and_average_salary_in_USD():
 def important_factors_in_salary_prediction():
     dfnewCopy['experience_level_encoded'] = encoder.fit_transform(dfnewCopy['experience_level'])
     dfnewCopy['company_size_encoded'] = encoder.fit_transform(dfnewCopy['company_size'])
-    
     remote_ratio_mapping = {0: "Less than 20%", 50: "Partially Remote (50%)", 100: "Fully Remote (More than 80%)"}
     dfnewCopy['remote_ratio_str'] = dfnewCopy['remote_ratio'].map(remote_ratio_mapping)
-    
     X = dfnewCopy[['experience_level_encoded', 'remote_ratio', 'company_size_encoded']]
     y = dfnewCopy['salary_in_usd']
-    
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     model = LinearRegression()
     model.fit(X_train, y_train)
-    
     feature_importance = pd.Series(model.coef_, index=['Experience Level', 'Remote Ratio', 'Company Size'])
     feature_importance.plot(kind='bar', color='lightgreen')
     plt.title("Important Factors in Salary Prediction")
@@ -175,26 +168,21 @@ def average_data_science_salaries_by_experience_level_actual_vs_predicted():
         2: 'Senior Level',
         3: 'Expert Level'
     }
-    
     dfnew['experience_level_code'] = dfnew['experience_level'].astype('category').cat.codes
-    
     X = dfnew[['experience_level_code']]
     y = dfnew['salary_in_usd']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     model = LinearRegression()
     model.fit(X_train, y_train)
     predictions = model.predict(X)
-    
     dfnew['predicted_salary'] = predictions
     avg_predicted_salary = dfnew.groupby('experience_level_code')['predicted_salary'].mean().reset_index()
     avg_actual_salary = dfnew.groupby('experience_level_code')['salary_in_usd'].mean().reset_index()
-    
     avg_actual_salary['experience_level'] = avg_actual_salary['experience_level_code'].map(experience_mapping)
     avg_predicted_salary['experience_level'] = avg_predicted_salary['experience_level_code'].map(experience_mapping)
     plt.figure(figsize=(12, 6))
     bar_width = 0.4
     index = np.arange(len(experience_mapping))
-    
     plt.bar(index - bar_width/2, avg_actual_salary['salary_in_usd'], bar_width, label='Actual', color='b')
     plt.bar(index + bar_width/2, avg_predicted_salary['predicted_salary'], bar_width, label='Predicted', color='g')
     plt.title('Average Data Science Salaries by Experience Level (Actual vs Supervised Learning Predicted)')
@@ -220,6 +208,7 @@ def average_data_science_salaries_by_employement_type():
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
+    
 average_data_science_salaries_by_employement_type()
 """From what we can see on the bar chart, the highest average salary was for CT positions, with an average that far surpasses the rest, and is nearly 175,000. The average for FT employment is relatively middle-of-the-pack at around 100,000, and FL and PT averages are significantly smaller, and their averages run below 50,000. This would indicate that more pay in data science is often associated with contract-based employment, perhaps reflecting the premium put for short-term, high-skilled work, where freelancer and part-time will take lower pay rates.
 
@@ -273,7 +262,6 @@ def elbow_method_for_optimal_k():
         kmeans = KMeans(n_clusters=k, random_state=42)
         kmeans.fit(data_filtered)
         inertia.append(kmeans.inertia_)
-    
     plt.figure(figsize=(8, 5))
     plt.plot(k_range, inertia, marker='o', linestyle='-')
     plt.xlabel("Number of Clusters (k)")
@@ -284,10 +272,7 @@ def elbow_method_for_optimal_k():
 def clusters_of_job_salaries_by_company_location():
     kmeans = KMeans(n_clusters=4, random_state=42)
     data_filtered['cluster'] = kmeans.fit_predict(data_filtered)
-    
-    
     data_filtered['company_location'] = label_encoder.inverse_transform(data_filtered['company_location_encoded'])
-    
     plt.figure(figsize=(12, 8))
     sns.scatterplot(
         x='company_location_encoded',
