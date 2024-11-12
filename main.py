@@ -263,7 +263,7 @@ Furthermore, this suggests that fully remote positions in data science are often
 # Tagorda
 """
 def data_filtered_tagorda():
-    data_filtered = data[['salary_in_usd', 'company_location']].copy()
+    data_filtered = df[['salary_in_usd', 'company_location']].copy()
     label_encoder = LabelEncoder()
     data_filtered.loc[:, 'company_location_encoded'] = label_encoder.fit_transform(data_filtered['company_location'])
     data_filtered = data_filtered.drop(columns=['company_location'])
