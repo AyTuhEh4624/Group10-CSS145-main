@@ -332,6 +332,7 @@ Additionally, the analysis shows that some countries with a strong presence of t
 """)
 
 def location_encoding_tagorda():
+    label_encoder = LabelEncoder()
     location_encoding = dict(zip(dfnew['company_location'].unique(), label_encoder.transform(data['company_location'].unique())))
     for location, code in location_encoding.items():
         st.write(f"{location}: {code}")
