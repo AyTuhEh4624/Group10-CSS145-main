@@ -118,14 +118,14 @@ def distribution_of_remote_work_ratio_and_average_salary_in_USD():
     labels = [custom_labels[val] for val in remote_ratio_counts.index]
     plt.pie(remote_ratio_counts, labels=labels, autopct='%1.1f%%', startangle=140)
     plt.title('Distribution of Remote Work Ratio')
-    plt.show()
+    st.pyplot()
 
     avg_salary_by_size = dfnewCopy.groupby('company_size')['salary_in_usd'].mean()
     avg_salary_by_size.plot(kind='bar', color='skyblue')
     plt.title("Average Salary by Company Size")
     plt.xlabel("Company Size")
     plt.ylabel("Average Salary in USD")
-    plt.show()
+    st.pyplot()
 
 def important_factors_in_salary_prediction():
     encoder = LabelEncoder()
@@ -144,7 +144,7 @@ def important_factors_in_salary_prediction():
     plt.title("Important Factors in Salary Prediction")
     plt.xlabel("Factors")
     plt.ylabel("Predicted Salary Changes")
-    plt.show()
+    st.pyplot()
 
 distribution_of_remote_work_ratio_and_average_salary_in_USD()
 important_factors_in_salary_prediction()
