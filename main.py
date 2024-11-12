@@ -51,20 +51,20 @@ import seaborn as sns
 from matplotlib import style
 import warnings
 warnings.filterwarnings('ignore')
-from sklearn import datasets
+from scikit-learn import datasets
 import random
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+from scikit-learn.model_selection import train_test_split
+from scikit-learn.linear_model import LinearRegression
 
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder, StandardScaler
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-from sklearn.cluster import KMeans
-from sklearn.semi_supervised import LabelPropagation
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.model_selection import train_test_split
+from scikit-learn.model_selection import train_test_split
+from scikit-learn.preprocessing import LabelEncoder, StandardScaler
+from scikit-learn.ensemble import RandomForestClassifier
+from scikit-learn.metrics import accuracy_score, classification_report, confusion_matrix
+from scikit-learn.cluster import KMeans
+from scikit-learn.semi_supervised import LabelPropagation
+from scikit-learn.linear_model import LinearRegression
+from scikit-learn.metrics import mean_squared_error, r2_score
+from scikit-learn.model_selection import train_test_split
 
 df=pd.read_csv('ds_salaries.csv')
 df.dropna(axis=1, how='any')
