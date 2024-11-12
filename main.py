@@ -107,6 +107,8 @@ From this scatter graph, we are able to understand that the predicted salary is 
 
 actual_vs_predicted_salary()
 def distribution_of_remote_work_ratio_and_average_salary_in_USD():
+    encoder = LabelEncoder()
+    dfnewCopy = dfnew.copy()
     remote_ratio_counts = dfnewCopy['remote_ratio'].value_counts()
     custom_labels = {
         0: "Less than 20%",
@@ -126,6 +128,8 @@ def distribution_of_remote_work_ratio_and_average_salary_in_USD():
     plt.show()
 
 def important_factors_in_salary_prediction():
+    encoder = LabelEncoder()
+    dfnewCopy = dfnew.copy()
     dfnewCopy['experience_level_encoded'] = encoder.fit_transform(dfnewCopy['experience_level'])
     dfnewCopy['company_size_encoded'] = encoder.fit_transform(dfnewCopy['company_size'])
     remote_ratio_mapping = {0: "Less than 20%", 50: "Partially Remote (50%)", 100: "Fully Remote (More than 80%)"}
