@@ -274,7 +274,6 @@ def data_filtered_tagorda():
     data_filtered.head()
 
 def elbow_method_for_optimal_k():
-    data_filtered_tagorda()
     inertia = []
     k_range = range(1, 11)
     for k in k_range:
@@ -289,7 +288,6 @@ def elbow_method_for_optimal_k():
     st.pyplot()
 
 def clusters_of_job_salaries_by_company_location():
-    data_filtered_tagorda()
     kmeans = KMeans(n_clusters=4, random_state=42)
     data_filtered['cluster'] = kmeans.fit_predict(data_filtered)
     data_filtered['company_location'] = label_encoder.inverse_transform(data_filtered['company_location_encoded'])
@@ -309,6 +307,7 @@ def clusters_of_job_salaries_by_company_location():
     plt.legend(title="Cluster")
     st.pyplot()
 
+data_filtered_tagorda()
 elbow_method_for_optimal_k() 
 clusters_of_job_salaries_by_company_location()
 
