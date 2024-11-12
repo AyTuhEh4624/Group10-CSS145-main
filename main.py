@@ -266,20 +266,32 @@ Furthermore, this suggests that fully remote positions in data science are often
 # Tagorda
 """)
 
-def data_filtered_tagorda():
-    data_filtered = df[['salary_in_usd', 'company_location']].copy()
-    label_encoder = LabelEncoder()
-    data_filtered.loc[:, 'company_location_encoded'] = label_encoder.fit_transform(data_filtered['company_location'])
-    data_filtered = data_filtered.drop(columns=['company_location'])
-    data_filtered.head()
+def data_science_salaries_by_remote_ratio():
+    encoder = LabelEncoder()
+    dfnewCopy = dfnew.copy()
+    plt.figure(figsize=(12, 6))
+    plt.plot(dfnew['salary_in_usd'], dfnew['remote_ratio'], 'o', color='orange')
+    plt.title('Data Science Salaries by Remote Ratio')
+    plt.xlabel('Salary in USD')
+    plt.ylabel('Remote Ratio')
+    plt.grid(True)
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    st.pyplot()
 
 def elbow_method_for_optimal_k():
+    data_filtered = dfnew[['salary_in_usd', 'company_location']].copy()
+    label_encoder = LabelEncoder()
+    data_filtered['company_location_encoded'] = label_encoder.fit_transform(data_filtered['company_location'])
+    data_filtered = data_filtered.drop(columns=['company_location'])
+
     inertia = []
     k_range = range(1, 11)
     for k in k_range:
         kmeans = KMeans(n_clusters=k, random_state=42)
         kmeans.fit(data_filtered)
         inertia.append(kmeans.inertia_)
+        
     plt.figure(figsize=(8, 5))
     plt.plot(k_range, inertia, marker='o', linestyle='-')
     plt.xlabel("Number of Clusters (k)")
@@ -288,9 +300,15 @@ def elbow_method_for_optimal_k():
     st.pyplot()
 
 def clusters_of_job_salaries_by_company_location():
+    data_filtered = dfnew[['salary_in_usd', 'company_location']].copy()
+    label_encoder = LabelEncoder()
+    data_filtered['company_location_encoded'] = label_encoder.fit_transform(data_filtered['company_location'])
+    data_filtered = data_filtered.drop(columns=['company_location'])
+
     kmeans = KMeans(n_clusters=4, random_state=42)
     data_filtered['cluster'] = kmeans.fit_predict(data_filtered)
     data_filtered['company_location'] = label_encoder.inverse_transform(data_filtered['company_location_encoded'])
+    
     plt.figure(figsize=(12, 8))
     sns.scatterplot(
         x='company_location_encoded',
@@ -307,8 +325,9 @@ def clusters_of_job_salaries_by_company_location():
     plt.legend(title="Cluster")
     st.pyplot()
 
-data_filtered_tagorda()
-elbow_method_for_optimal_k() 
+# Call the functions to visualize the data
+data_science_salaries_by_remote_ratio()
+elbow_method_for_optimal_k()
 clusters_of_job_salaries_by_company_location()
 
 st.markdown("""
