@@ -98,3 +98,102 @@ experience_level, job_title, and etc
 """)
 
 actual_vs_predicted_salary()
+
+st.markdown("""
+**Supervised Learning For Salary Prediction**
+
+From this scatter graph, we are able to understand that the predicted salary is considerably lower than the actual salary. Using an encoder to convert "experience_level" and "company_size" into usable values, we are able to get predicted salaries. This plot visualized how linear regression model predictions align with the aculary salary given from the data set. In this case, the predicted values are significantly lower.
+""")
+
+actual_vs_predicted_salary()
+def distribution_of_remote_work_ratio_and_average_salary_in_USD():
+    remote_ratio_counts = dfnewCopy['remote_ratio'].value_counts()
+    custom_labels = {
+        0: "Less than 20%",
+        50: "Partially Remote (50%)",
+        100: "Fully Remote (More than 80%)"
+    }
+    labels = [custom_labels[val] for val in remote_ratio_counts.index]
+    plt.pie(remote_ratio_counts, labels=labels, autopct='%1.1f%%', startangle=140)
+    plt.title('Distribution of Remote Work Ratio')
+    plt.show()
+
+    avg_salary_by_size = dfnewCopy.groupby('company_size')['salary_in_usd'].mean()
+    avg_salary_by_size.plot(kind='bar', color='skyblue')
+    plt.title("Average Salary by Company Size")
+    plt.xlabel("Company Size")
+    plt.ylabel("Average Salary in USD")
+    plt.show()
+
+def important_factors_in_salary_prediction():
+    dfnewCopy['experience_level_encoded'] = encoder.fit_transform(dfnewCopy['experience_level'])
+    dfnewCopy['company_size_encoded'] = encoder.fit_transform(dfnewCopy['company_size'])
+    remote_ratio_mapping = {0: "Less than 20%", 50: "Partially Remote (50%)", 100: "Fully Remote (More than 80%)"}
+    dfnewCopy['remote_ratio_str'] = dfnewCopy['remote_ratio'].map(remote_ratio_mapping)
+    X = dfnewCopy[['experience_level_encoded', 'remote_ratio', 'company_size_encoded']]
+    y = dfnewCopy['salary_in_usd']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    feature_importance = pd.Series(model.coef_, index=['Experience Level', 'Remote Ratio', 'Company Size'])
+    feature_importance.plot(kind='bar', color='lightgreen')
+    plt.title("Important Factors in Salary Prediction")
+    plt.xlabel("Factors")
+    plt.ylabel("Predicted Salary Changes")
+    plt.show()
+
+distribution_of_remote_work_ratio_and_average_salary_in_USD()
+important_factors_in_salary_prediction()
+st.markdown("""
+**Supervised Learning: Important Factors in Salary Prediction**
+
+This graph highlights the factors that most significantly contribute to predicting the salary.
+
+
+1. **Experience Level:** This factor has a strong influence on salary, with more senior roles usually demending higher salaries. This was very much expected.
+
+2. **Company Size:** It seems like larger companies will most likely offer higher salaries compared to smaller companies.
+
+3. **Remote Ratio:** The remote work percentage may affect salary; however, from our data, it seems like the average salary given did not see much changes.
+
+# Ofrin
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
+
+st.markdown("""
+""")
